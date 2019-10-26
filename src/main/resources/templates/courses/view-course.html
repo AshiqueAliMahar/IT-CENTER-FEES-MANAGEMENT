@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.9.0/css/all.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+
+    <div th:include="home/homepage::homepage"></div>
+    <div class="card mt-1">
+
+        <div class="card-header">
+            <p th:text="${course.name}" class="float-left">Featured</p>
+            <div class="btn-group float-right" role="group" aria-label="Basic example">
+                <a href="#" class="btn btn-info" th:href="|/courses/edit-course/${course.name}|">Edit Course</a>
+                <a class="btn btn-info" href="" th:href="|/courses/${course.name}/add-batch|">Add Batch</a>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <b class="float-left">Course Fee:</b>
+            <p class="card-text" th:text="${course.fees}">With supporting text below as a natural lead-in to additional
+                content.</p>
+            <div class="card">
+                <div class="card-header">
+                    Batches
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-responsive-lg table-dark table-hover rounded mt-2 table-striped text-center ">
+                        <thead>
+                        <tr>
+                            <th>Batch Name</th>
+                            <th>Batch Start Time</th>
+                            <th>Batch End Time</th>
+                            <th>Batch Start Date</th>
+                            <th>Batch End Date</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody th:remove="all-but-first">
+
+                        <tr th:each="batch:${course.batches}">
+                            <td th:text="${batch.batchName}">JAVA</td>
+                            <td th:text="${batch.startTime}">12:00 PM</td>
+                            <td th:text="${batch.endTime}">1:00 PM</td>
+                            <td th:text="${batch.startDate}">01-01-2018</td>
+                            <td th:text="${batch.endDate}">01-01-2018</td>
+                            <td><a href="" th:href="|/courses/${course.name}/batches/${batch.batchName}|"
+                                   class="fas fa-edit text-white"></a></td>
+                            <td><a href="#" class="fas fa-trash text-white"
+                                   th:href="|/courses/${course.name}/del-batch/${batch.batchName}|"></a></td>
+                        </tr>
+                        <tr>
+                            <td>JAVA</td>
+                            <td>12:00 PM</td>
+                            <td>1:00 PM</td>
+                            <td>01-01-2018</td>
+                            <td>01-01-2018</td>
+                            <td><a href="#" class="fas fa-edit"></a></td>
+                            <td><a href="#" class="fas fa-trash"></a></td>
+                        </tr>
+                        <tr>
+                            <td>JAVA</td>
+                            <td>12:00 PM</td>
+                            <td>1:00 PM</td>
+                            <td>01-01-2018</td>
+                            <td>01-01-2018</td>
+                            <td><a href="#" class="fas fa-edit "></a></td>
+                            <td><a href="#" class="fas fa-trash"></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

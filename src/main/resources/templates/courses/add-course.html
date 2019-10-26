@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/popper.js/1.12.9/popper.min.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:insert="home/homepage::homepage" class="mb-2"></div>
+    <div class="card">
+        <h4 class="card-header">Add Course</h4>
+        <div class="card-body">
+            <form th:action="@{/courses/add-course}" method="post" th:object="${course}">
+
+                Name:<input class="form-control" th:field="*{name}">
+
+                <ul class="alert alert-danger" th:if="${#fields.hasErrors('name')}">
+                    <li th:each="error:${#fields.errors('name')}" th:text="${error}">Error</li>
+                </ul>
+
+                Fee:<input class="form-control" th:field="*{fees}">
+                <ul class="alert alert-danger" th:if="${#fields.hasErrors('fees')}">
+                    <li th:each="error:${#fields.errors('fees')}" th:text="${error}">Error</li>
+                </ul>
+                <button class="btn btn-primary" type="submit">Save changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

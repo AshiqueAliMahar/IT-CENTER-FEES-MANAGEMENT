@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"
+            src="../../static/js/jquery-3.2.1.min.js"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"
+            src="../../static/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script
+            src="../../static/js/bootstrap.min.js"
+            crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.9.0/css/all.css}"
+          href="../../static/fontawesome/css/all.min.css" crossorigin="anonymous">
+    <!--    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"-->
+    <!--            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"-->
+    <!--    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"-->
+    <!--    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"-->
+    <style>
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: silver;
+        }
+    </style>
+
+
+</head>
+<body>
+<div class="container">
+    <!--    <div  class="alert alert-danger">hello</div>-->
+    <!--    <div th:text="${user.password}" class="alert alert-danger"></div>-->
+    <div th:insert="home/homepage::homepage"></div>
+    <h1 class="h1 text-center">COURSES</h1>
+    <p class="alert alert-danger" th:text="${param.msg}"></p>
+    <a href="/courses/add-course" class="btn btn-success fas fa-plus-circle"></a>
+
+    <table class="table table-responsive-lg table-light table-bordered table-hover rounded mt-2 table-striped text-center"
+           width="100%">
+        <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Fees</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each="course:${courses.getContent()}">
+            <td><a th:text="${course.name}" href="#" th:href="|/courses/view-course/${course.name}|">JAVA SE</a></td>
+            <td th:text="${course.fees}">12000</td>
+            <td><a href="#" th:href="|/courses/edit-course/${course.name}|" class="fas fa-edit fa-2x"></a></td>
+            <td><a href="#" th:href="|/courses/del-course/${course.name}|" class="fas fa-trash fa-2x"></a></td>
+        </tr>
+        <tr>
+            <td>JAVA SE</td>
+            <td>12000</td>
+            <td><a href="#" class="fas fa-edit fa-2x"></a></td>
+            <td><a href="#" class="fas fa-trash fa-2x"></a></td>
+        </tr>
+        <tr>
+            <td>JAVA SE</td>
+            <td>12000</td>
+            <td><a href="#" class=" fas fa-edit fa-2x" data-toggle="modal" data-target="#exampleModalCenter"></a></td>
+            <td><a href="#" class="fas fa-trash fa-2x"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <span th:each="pageNo:${#numbers.sequence(1,courses.getTotalPages())}" th:remove="all-but-first"
+          style="margin-left: 20px">
+        <a href="#" th:href="@{'/courses?pageNo='+${pageNo-1}}" th:text="${pageNo}" class="btn btn-info rounded-circle">1</a>
+        <a href="#" class="btn btn-info rounded-circle">1</a>
+        <a href="#" class="btn btn-info rounded-circle">1</a>
+    </span>
+    <p class="float-left font-weight-bold"
+       th:text="|${courses.getNumberOfElements()} OF ${courses.getTotalElements()}|">5 OF 100 Entries</p>
+    <div class="btn-group float-right" role="group" aria-label="Basic example">
+        <a th:href="@{|'/courses?pageNo='+${courses.getNumber()-1}|}" class="btn btn-secondary fas fa-arrow-left"
+           th:if="${courses.hasPrevious()}"></a>
+        <a th:href="@{|'/courses?pageNo='+${courses.getNumber()+1}|}" class="btn btn-secondary fas fa-arrow-right"
+           th:if="${courses.hasNext()}"></a>
+    </div>
+
+</div>
+
+
+</body>
+</html>

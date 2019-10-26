@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Batch</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:include="home/homepage::homepage"></div>
+    <div>
+        <div class="card">
+            <h4 class="card-header"><b>Course Name:</b><span th:text="${course.name}"></span></h4>
+            <div class="card-body">
+                <h4 class="card-title" th:text="|Batch Name:${batchCommand.batchName}|">Special title treatment</h4>
+                <form th:object="${batchCommand}" method="post" th:action="'/courses/'+${course.name}+'/add-batch'">
+                    <input type="hidden" class="form-control" th:field="*{batchName}">
+                    Class Start Time:<input type="time" class="form-control" th:field="*{startTime}">
+                    Class End Time:<input type="time" class="form-control" th:field="*{endTime}">
+                    Batch Starting Date<input type="date" class="form-control" th:field="*{startDate}">
+                    Batch Ending Date<input type="date" class="form-control" th:field="*{endDate}">
+                    <button class="btn btn-info btn-block mt-1">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

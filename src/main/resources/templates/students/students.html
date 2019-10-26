@@ -1,0 +1,166 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            crossorigin="anonymous"></script>
+    <!--    <script src="../../static/popper.min.js"></script>-->
+    <script th:src="@{/webjars/popper.js/1.12.9/popper.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.9.0/css/all.min.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" crossorigin="anonymous">
+    <STYLE>
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: silver;
+        }
+    </STYLE>
+</head>
+<body>
+<div class="container">
+    <div th:insert="home/homepage::homepage">demo</div>
+    <h1 class="h1 text-center">STUDENTS</h1>
+    <p class="alert alert-danger" th:text="${param.msg}">Alerts</p>
+    <a href="/student/add-student" class="btn btn-success fas fa-plus-circle"></a>
+    <table class="table table-responsive-lg table-dark text-center">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Roll No</th>
+            <th>Date of birth</th>
+            <th>Admission Date</th>
+            <th>Batch Name</th>
+            <th>Course Name</th>
+            <th>Course Fee</th>
+            <th>Paid Fees</th>
+            <th>Fee Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each="student,statusVar:${students.getContent()}">
+            <td><a th:href="${'/students/view-student/'+student.rollNo}" th:text="${student.name}">Ashique Ali</a></td>
+            <td th:text="${student.rollNo}">16cs13</td>
+            <td th:text="${student.dob}">01-01-1998</td>
+            <td th:text="${student.admissionDate}">Jan-01-2018</td>
+            <td th:text="${student.batch.batchName}">Java SE 01</td>
+            <td th:text="${student.batch.course.name}">Java SE</td>
+            <td th:text="${student.batch.course.fees}">10000</td>
+            <td th:text="${student.sumOfFees()}">2000</td>
+            <td>
+                <span th:if="${student.batch.course.fees==student.sumOfFees()}">Completely Paid</span>
+                <span th:if="${student.batch.course.fees> student.sumOfFees() && student.sumOfFees()>0}">Partially Paid</span>
+                <span th:if="${student.sumOfFees()==0}">Not Paid</span>
+            </td>
+            <!--                <td><img th:src="@{pic.jpg}" src="../../static/pic.jpg" class="img-fluid img-thumbnail" style="width: 100px"></td>-->
+            <td><a href="" th:href="${'/students/edit-student/'+student.rollNo}" class="fas fa-edit fa-2x"></a></td>
+            <td><a href="#" th:href="${'students/del-student/'+student.rollNo}" class="fas fa-trash fa-2x"></a></td>
+        </tr>
+        <tr>
+            <td>Ashique Ali</td>
+            <td>16cs13</td>
+            <td>01-01-1998</td>
+            <td>Jan-01-2018</td>
+            <td>Java SE 01</td>
+            <td>Java SE</td>
+            <td>10000</td>
+            <td>2000</td>
+            <td>Partially Paid</td>
+            <td><img th:src="@{pic.jpg}" src="../../static/pic.jpg" class="img-fluid img-thumbnail"
+                     style="width: 100px"></td>
+            <td><a href="#" class="fas fa-edit fa-2x"></a></td>
+            <td><a href="#" class="fas fa-trash fa-2x"></a></td>
+        </tr>
+        <tr>
+            <td>Ashique Ali</td>
+            <td>16cs13</td>
+            <td>01-01-1998</td>
+            <td>Jan-01-2018</td>
+            <td>Java SE 01</td>
+            <td>Java SE</td>
+            <td>10000</td>
+            <td>2000</td>
+            <td>Partially Paid</td>
+            <td><img th:src="@{pic.jpg}" src="../../static/pic.jpg" class="img-fluid img-thumbnail"
+                     style="width: 100px"></td>
+            <td><a href="#" class="fas fa-edit fa-2x"></a></td>
+            <td><a href="#" class="fas fa-trash fa-2x"></a></td>
+        </tr>
+        <tr>
+            <td>Ashique Ali</td>
+            <td>16cs13</td>
+            <td>01-01-1998</td>
+            <td>Jan-01-2018</td>
+            <td>Java SE 01</td>
+            <td>Java SE</td>
+            <td>10000</td>
+            <td>2000</td>
+            <td>Partially Paid</td>
+            <td><img th:src="@{pic.jpg}" src="../../static/pic.jpg" class="img-fluid img-thumbnail"
+                     style="width: 100px"></td>
+            <td><a href="#" class="fas fa-edit fa-2x"></a></td>
+            <td><a href="#" class="fas fa-trash fa-2x"></a></td>
+        </tr>
+        <tr>
+            <td>Ashique Ali</td>
+            <td>16cs13</td>
+            <td>01-01-1998</td>
+            <td>Jan-01-2018</td>
+            <td>Java SE 01</td>
+            <td>Java SE</td>
+            <td>10000</td>
+            <td>2000</td>
+            <td>Partially Paid</td>
+            <td><img th:src="@{pic.jpg}" src="../../static/pic.jpg" class="img-fluid img-thumbnail"
+                     style="width: 100px"></td>
+            <td><a href="#" class="fas fa-edit fa-2x"></a></td>
+            <td><a href="#" class="fas fa-trash fa-2x"></a></td>
+        </tr>
+        <tr>
+            <td>Ashique Ali</td>
+            <td>16cs13</td>
+            <td>01-01-1998</td>
+            <td>Jan-01-2018</td>
+            <td>Java SE 01</td>
+            <td>Java SE</td>
+            <td>10000</td>
+            <td>2000</td>
+            <td>Partially Paid</td>
+            <td><img th:src="@{pic.jpg}" src="../../static/pic.jpg" class="img-fluid img-thumbnail"
+                     style="width: 100px"></td>
+            <td><a href="#" class="fas fa-edit fa-2x"></a></td>
+            <td><a href="#" class="fas fa-trash fa-2x"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <span th:text="${students.getSize()} +' of '+ ${students.getTotalElements()}"></span>
+    <span th:each="page:${#numbers.sequence(1,students.getTotalPages())}">
+            <a class="btn btn-outline-info rounded-circle active" th:if="${pageNo==page.toString()}" th:text="|${page}|"
+               th:href="@{'/?pageNo='+${page}}">Page</a>
+            <a class="btn btn-outline-info rounded-circle" th:if="${pageNo!=page.toString()}" th:text="|${page}|"
+               th:href="@{'/?pageNo='+${page}}">Page</a>
+        </span>
+
+    <div class="btn-group float-right" role="group" aria-label="Basic example">
+        <a th:href="@{'/?pageNo=1'}" class="btn btn-secondary fa fa-home"></a>
+        <a th:href="@{'/?pageNo='+${students.getNumber()}}" class="btn btn-secondary fa fa-arrow-alt-circle-left"
+           th:if="${students.hasPrevious()}"></a>
+        <a th:href="@{'/?pageNo='+${students.getNumber()+2}}"
+           class="btn btn-secondary fa fa-arrow-alt-circle-right fa-arrow" th:if="${students.hasNext()}"></a>
+        <a th:href="@{'/?pageNo='+${students.getTotalPages()}}" class="btn btn-secondary fa fa-hourglass-end"></a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/popper.js/1.12.9/popper.min.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:insert="home/homepage::homepage">demo</div>
+    <form method="post" th:object="${student}" th:action="@{/student/add-student}" class="w-50 m-auto">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors()}">
+            <ul th:remove="all-but-first">
+                <li th:each="error:${#fields.errors()}" th:text="${error}">Error1</li>
+                <li>Error1</li>
+                <li>Error1</li>
+                <li>Error1</li>
+            </ul>
+        </div>
+        Name:<input class="form-control" th:field="*{name}">
+        Roll No:<input class="form-control" th:field="*{rollNo}">
+        Date Of Birth:<input class="form-control" type="date" th:field="*{dob}">
+        Batch Name:
+        <select class="form-control" th:remove="all-but-first" th:field="*{batch.batchName}">
+            <div th:each="course:${courses}">
+                <option th:each="batch:${course.batches}" th:value="${batch.batchName}" th:text="${batch.batchName}">
+                    JAVA SE
+                </option>
+            </div>
+            <option>JAVA SE</option>
+            <option>JAVA SE</option>
+            <option>JAVA SE</option>
+            <option>JAVA SE</option>
+        </select>
+        <!--    Upload Photo:-->
+        <!--    <input type="file" class="form-control mb-2" th:field="*{pic}">-->
+
+        <button class="btn btn-primary">Save changes</button>
+    </form>
+</div>
+</body>
+</html>

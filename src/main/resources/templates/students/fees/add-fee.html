@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Fee</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body class="container">
+<div th:include="home/homepage::homepage"></div>
+<div class="card w-50 m-auto">
+    <div class="card-header" th:text="${studentCommand.name}">
+        Ashique Ali
+    </div>
+    <div class="card-body">
+        <form method="post" th:object="${feeCommand}" th:action="@{'/students/'+${rollNo}+'/add-fees'}">
+
+            <input th:field="*{id}" type="hidden">
+            <label>Amount:</label>
+            <input th:field="*{amount}" class="form-control">
+            <ul th:remove="all-but-first" th:if="${#fields.hasErrors()}" class="alert alert-danger">
+                <li th:each="error:${#fields.errors('amount')}" th:text="${error}" class="text">Error</li>
+                <li>Error</li>
+                <li>Error</li>
+                <li>Error</li>
+            </ul>
+
+            <button class="btn btn-info btn-block">Save</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

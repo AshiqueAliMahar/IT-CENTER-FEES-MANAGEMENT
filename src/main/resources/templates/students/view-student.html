@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.9.0/css/all.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div th:insert="home/homepage::homepage">demo</div>
+    <div class="card">
+
+        <div class="card-header">
+            <span th:text="${student.name}">Not Found</span>
+            <div class="btn-group float-right">
+                <a class="btn btn-info" href="#" th:href="${'/students/edit-student/'+student.rollNo}">Edit</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                <table class="table table-secondary table-responsive-md rounded">
+                    <tr>
+                        <th>Name*</th>
+                        <td th:text="${student.name}">Ashique Ali</td>
+                        <th>Roll No*</th>
+                        <td th:text="${student.rollNo}">16cs13</td>
+                    </tr>
+                    <tr>
+                        <th>Date of birth*</th>
+                        <td th:text="${student.dob}">01-01-2019</td>
+                        <th>Admission Date*</th>
+                        <td th:text="${student.admissionDate}">01-02-2019</td>
+                    </tr>
+                    <tr>
+                        <th>Batch Name*</th>
+                        <td th:text="${student.batch.batchName}">01-01-2019</td>
+                        <th>Course Name*</th>
+                        <td th:text="${student.batch.course.name}">01-02-2019</td>
+                    </tr>
+                    <tr>
+                        <th>Course Fee*</th>
+                        <td th:text="${student.batch.course.fees}">01-01-2019</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Fees
+                    <a class="btn btn-info float-right text-white" th:href="@{|/students/${student.rollNo}/add-fees|}">New
+                        Fee</a>
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-responsive-md  table-bordered rounded">
+                        <thead class="bg-secondary text-white">
+                        <th>Paid Fee</th>
+                        <th>Payment Date</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="fee:${student.fees}">
+                            <td th:text="${fee.amount}">1000</td>
+                            <td th:text="${fee.payDate}">12-22-2019</td>
+                            <td><a href="#" class="fas fa-edit text-dark"
+                                   th:href="@{|/students/${student.rollNo}/edit-fees/${fee.id}|}"></a></td>
+                            <td><a href="#" class="fas fa-trash text-dark"
+                                   th:href="@{|/students/${student.rollNo}/delFees/${fee.id}|}"></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p><b>Total Fees:</b><span th:text="${student.batch.course.fees}">120000</span></p>
+                    <p><b>Paid Fees:</b><span th:text="${student.sumOfFees()}">01-02-2019</span></p>
+
+                    <p><b>Fee Status:</b>
+                        <span th:if="${student.batch.course.fees<=student.sumOfFees()}"
+                              th:text="'Completely Paid'"></span>
+                        <span th:if="${student.batch.course.fees> student.sumOfFees() && student.sumOfFees()>0}"
+                              th:text="'Partially Paid'"> Partially Paid</span>
+                        <span th:if="${student.sumOfFees()==0}" th:text="'Not Paid'"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
